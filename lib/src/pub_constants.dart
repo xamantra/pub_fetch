@@ -1,5 +1,5 @@
 /// The base url of `pub.dev`.
-const String host = 'http://pub.dev';
+const String host = 'https://pub.dev';
 
 /* HTML Selectors */
 
