@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-import 'index.dart';
+import '../index.dart';
 
 /// `pub.dev` homepage data.
 ///
