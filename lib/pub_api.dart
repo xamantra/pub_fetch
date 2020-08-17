@@ -1,8 +1,4 @@
-/// A library for scraping pub.dev packages.
+/// A dart library for scraping pub.dev packages.
 library pub_api;
 
-export 'src/index.dart' 
-    show
-      homepage,
-      validHomepage,
-      validHomepagePackage;
+export 'src/index.dart' show homepage, validHomepage, validHomepagePackage;

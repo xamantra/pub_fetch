@@ -1,1 +1,1 @@
-A library for scraping pub.dev packages.
+A dart library for scraping pub.dev packages.
