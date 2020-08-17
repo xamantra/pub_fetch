@@ -3,7 +3,7 @@ import 'package:pub/src/index.dart' as pub;
 import 'package:test/test.dart';
 
 void main() {
-  test('homepage', () async {
+  test('api.homepage()', () async {
     var homepage = await pub.homepage();
     expect(homepage != null, true);
     expect(homepage, isA<PubHomepage>());
