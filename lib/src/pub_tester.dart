@@ -24,8 +24,9 @@ bool validHomepagePackage(PubHomepagePackage package) {
   var notNull = package != null;
   var hasName = package.name != null && package.name.isNotEmpty;
   var hasDesc = package.description != null && package.description.isNotEmpty;
+  var validUrl = Uri.parse(package.url).isAbsolute;
   var hasVerifiedValue = package.verified != null;
-  return notNull && hasName && hasDesc && hasVerifiedValue;
+  return notNull && hasName && hasDesc && hasVerifiedValue && validUrl;
 }
 
 /// This is used for internal testing but feel free to use this
@@ -43,6 +44,7 @@ bool validPackageList(PubPackageList packageList) {
 bool validPackage(PubPackage pkg) {
   var hasName = pkg.name != null && pkg.name.isNotEmpty;
   var hasUrl = pkg.url != null && pkg.url.isNotEmpty;
+  var validUrl = Uri.parse(pkg.url).isAbsolute;
   var hasDescription = pkg.description != null && pkg.description.isNotEmpty;
   var hasVersion = pkg.version != null && pkg.version.isNotEmpty;
   var hasPublished = pkg.published != null && pkg.published.isNotEmpty;
@@ -54,6 +56,7 @@ bool validPackage(PubPackage pkg) {
   return _allTrue([
     hasName,
     hasUrl,
+    validUrl,
     hasDescription,
     hasVersion,
     hasPublished,

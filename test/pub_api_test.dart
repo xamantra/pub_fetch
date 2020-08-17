@@ -25,6 +25,7 @@ void main() {
 
   test('api.search(...)', () async {
     var result = await PubAPI().search(randomQuery());
+    print('Testing with query "${result.searchQuery}"');
     expect(result != null, true);
     expect(result, isA<PubPackageList>());
     expect(validPackageList(result), true);

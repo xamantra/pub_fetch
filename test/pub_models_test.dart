@@ -27,6 +27,7 @@ void main() {
 
   test('models.PubPackageList', () async {
     var pubPackageList = await PubAPI().search(randomQuery());
+    print('Testing with query "${pubPackageList.searchQuery}"');
     var json = pubPackageList.toRawJson();
     var parsedPubPackageList = PubPackageList.fromRawJson(json);
     expect(json != null, true);
@@ -37,6 +38,7 @@ void main() {
 
   test('models.PubPackage', () async {
     var pubPackageList = await PubAPI().search(randomQuery());
+    print('Testing with query "${pubPackageList.searchQuery}"');
     var package = pubPackageList.packages.last;
     var json = package.toRawJson();
     var parsedPackage = PubPackage.fromRawJson(json);

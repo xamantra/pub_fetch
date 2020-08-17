@@ -46,18 +46,25 @@ List<PubPackage> getPackages(
     var publisher = item.querySelector(pkgPublisher)?.text;
     var version = item.querySelector(pkgVersion)?.text;
     var published = item.querySelector(pkgPublished)?.text;
-    var likes = int.parse(item.querySelector(pkgLikes)?.text);
-    var pubPoints = int.parse(item.querySelector(pkgPoints)?.text);
-    var popularity = int.parse(item.querySelector(pkgPopularity)?.text);
+    var likesText = item.querySelector(pkgLikes)?.text;
+    var likes = int.parse(likesText == '--' ? '0' : likesText);
+    var pubPointsText = item.querySelector(pkgPoints)?.text;
+    var pubPoints = int.parse(pubPointsText == '--' ? '0' : pubPointsText);
+    var popularityText = item.querySelector(pkgPopularity)?.text;
+    var popularity = int.parse(popularityText == '--' ? '0' : popularityText);
     var isFlutterFavorite = item.querySelector(pkgFlutterFavorite) != null;
     var tags = item.querySelectorAll(pkgTags);
     var pubTags = <String>[];
     for (var tag in tags) {
       pubTags.add(tag.text.toUpperCase());
     }
+    String fullUrl;
+    if (url.contains('https://api.dart.dev/') || url.contains('https://dart.dev/')) {
+      fullUrl = url;
+    }
     results.add(PubPackage(
       name: name,
-      url: '$host$url',
+      url: fullUrl ?? '$host$url',
       description: description,
       publisher: publisher,
       version: version,
