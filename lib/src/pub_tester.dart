@@ -20,5 +20,6 @@ bool validHomepagePackage(PubPackage package) {
   var notNull = package != null;
   var hasName = package.name != null && package.name.isNotEmpty;
   var hasDesc = package.description != null && package.description.isNotEmpty;
-  return notNull && hasName && hasDesc;
+  var hasVerifiedValue = package.verified != null;
+  return notNull && hasName && hasDesc && hasVerifiedValue;
 }
