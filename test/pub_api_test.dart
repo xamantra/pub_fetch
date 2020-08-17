@@ -1,6 +1,8 @@
 import 'package:pub_api/src/index.dart';
 import 'package:test/test.dart';
 
+import 'queries.dart';
+
 void main() {
   test('api.homepage()', () async {
     var homepage = await PubAPI().homepage();
@@ -22,7 +24,7 @@ void main() {
   });
 
   test('api.search(...)', () async {
-    var result = await PubAPI().search('state management');
+    var result = await PubAPI().search(randomQuery());
     expect(result != null, true);
     expect(result, isA<PubPackageList>());
     expect(validPackageList(result), true);

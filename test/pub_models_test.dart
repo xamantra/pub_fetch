@@ -1,6 +1,8 @@
 import 'package:pub_api/src/index.dart';
 import 'package:test/test.dart';
 
+import 'queries.dart';
+
 void main() {
   test('models.PubPackage', () async {
     var homepage = await PubAPI().homepage();
@@ -24,7 +26,7 @@ void main() {
   });
 
   test('models.PubPackageList', () async {
-    var pubPackageList = await PubAPI().search('dialogs');
+    var pubPackageList = await PubAPI().search(randomQuery());
     var json = pubPackageList.toRawJson();
     var parsedPubPackageList = PubPackageList.fromRawJson(json);
     expect(json != null, true);
@@ -34,7 +36,7 @@ void main() {
   });
 
   test('models.PubPackage', () async {
-    var pubPackageList = await PubAPI().search('dialogs');
+    var pubPackageList = await PubAPI().search(randomQuery());
     var package = pubPackageList.packages.last;
     var json = package.toRawJson();
     var parsedPackage = PubPackage.fromRawJson(json);
