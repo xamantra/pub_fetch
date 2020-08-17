@@ -1,5 +1,5 @@
 /// Real world search queries.
-final queries = [
+final List<String> queries = [
   'state management',
   'fancy appbar',
   'dialogs',
