@@ -47,23 +47,19 @@ bool validPackage(PubPackage pkg) {
   var validUrl = Uri.parse(pkg.url).isAbsolute;
   var hasDescription = pkg.description != null && pkg.description.isNotEmpty;
   var hasVersion = pkg.version != null && pkg.version.isNotEmpty;
-  var hasPublished = pkg.published != null && pkg.published.isNotEmpty;
   var likesNotNull = pkg.likes != null && pkg.likes >= 0;
   var pubPointsNotNull = pkg.pubPoints != null && pkg.pubPoints >= 0;
   var popularityNotNull = pkg.popularity != null && pkg.popularity >= 0;
   var isFlutterFavoriteNull = pkg.isFlutterFavorite != null;
-  var pubTagsHasItem = pkg.pubTags != null && pkg.pubTags.isNotEmpty;
   return _allTrue([
     hasName,
     hasUrl,
     validUrl,
     hasDescription,
     hasVersion,
-    hasPublished,
     likesNotNull,
     pubPointsNotNull,
     popularityNotNull,
     isFlutterFavoriteNull,
-    pubTagsHasItem,
   ]);
 }

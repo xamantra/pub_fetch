@@ -45,6 +45,16 @@ List<PubPackage> getPackages(
     var description = item.querySelector(pkgDescription)?.text;
     var publisher = item.querySelector(pkgPublisher)?.text;
     var version = item.querySelector(pkgVersion)?.text;
+    if (version == null) {
+      var dartCoreVersion = item
+          .querySelector(
+            '.packages-metadata',
+          )
+          ?.text;
+      if ((dartCoreVersion ?? '').contains('Dart core library')) {
+        version = dartCoreVersion;
+      }
+    }
     var published = item.querySelector(pkgPublished)?.text;
     var likesText = item.querySelector(pkgLikes)?.text;
     var likes = int.parse(likesText == '--' ? '0' : likesText);
