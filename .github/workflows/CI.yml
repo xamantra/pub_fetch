@@ -19,9 +19,9 @@ jobs:
       run: pub run test
     - name: Code Coverage
       run: pub run test_coverage
-    - name: Check Code Coverage
+    - name: Code Coverage -> Check
       uses: ChicagoFlutter/lcov-cop@v1.0.0
-    - name: Upload Code Coverage -> Upload
+    - name: Code Coverage -> Upload
       uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
