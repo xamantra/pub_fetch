@@ -1,5 +1,5 @@
-import 'package:pub/src/index.dart';
-import 'package:pub/src/index.dart' as pub;
+import 'package:pub_api/src/index.dart';
+import 'package:pub_api/src/index.dart' as pub;
 import 'package:test/test.dart';
 
 void main() {
