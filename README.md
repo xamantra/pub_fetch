@@ -2,7 +2,6 @@
 
 A dart library for scraping pub.dev packages.
 
-<br>
 
 <a href="https://github.com/xamantra/pub_api/actions?query=workflow%3ACI">
   <img src="https://github.com/xamantra/pub_api/workflows/CI/badge.svg?branch=master">

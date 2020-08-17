@@ -18,22 +18,22 @@ class PubHomepage extends Equatable {
   ///
   /// Packages that demonstrate the highest levels of quality,
   /// selected by the Flutter Ecosystem Committee
-  final List<PubPackage> flutterFavorites;
+  final List<PubHomepagePackage> flutterFavorites;
 
   /// 6 random most popular packages (dart or flutter).
   ///
   /// The most downloaded packages over the past 60 days
-  final List<PubPackage> mostPopularPackages;
+  final List<PubHomepagePackage> mostPopularPackages;
 
   /// 6 random top flutter packages.
   ///
   /// Top packages that extend Flutter with new features
-  final List<PubPackage> topFlutterPackages;
+  final List<PubHomepagePackage> topFlutterPackages;
 
   /// 6 random top dart packages.
   ///
   /// Top packages for any Dart-based app or program
-  final List<PubPackage> topDartPackages;
+  final List<PubHomepagePackage> topDartPackages;
 
   /// `pub.dev` homepage data.
   ///
@@ -66,17 +66,17 @@ class PubHomepage extends Equatable {
     if (map == null) return null;
 
     return PubHomepage(
-      flutterFavorites: List<PubPackage>.from(
-        map['flutterFavorites']?.map((x) => PubPackage.fromJson(x)),
+      flutterFavorites: List<PubHomepagePackage>.from(
+        map['flutterFavorites']?.map((x) => PubHomepagePackage.fromJson(x)),
       ),
-      mostPopularPackages: List<PubPackage>.from(
-        map['mostPopularPackages']?.map((x) => PubPackage.fromJson(x)),
+      mostPopularPackages: List<PubHomepagePackage>.from(
+        map['mostPopularPackages']?.map((x) => PubHomepagePackage.fromJson(x)),
       ),
-      topFlutterPackages: List<PubPackage>.from(
-        map['topFlutterPackages']?.map((x) => PubPackage.fromJson(x)),
+      topFlutterPackages: List<PubHomepagePackage>.from(
+        map['topFlutterPackages']?.map((x) => PubHomepagePackage.fromJson(x)),
       ),
-      topDartPackages: List<PubPackage>.from(
-        map['topDartPackages']?.map((x) => PubPackage.fromJson(x)),
+      topDartPackages: List<PubHomepagePackage>.from(
+        map['topDartPackages']?.map((x) => PubHomepagePackage.fromJson(x)),
       ),
     );
   }
