@@ -1,4 +1,5 @@
-final _queries = [
+/// Real world search queries.
+final queries = [
   'state management',
   'fancy appbar',
   'dialogs',
@@ -14,5 +15,5 @@ final _queries = [
 ];
 
 String randomQuery() {
-  return (_queries..shuffle()).first;
+  return (queries..shuffle()).first;
 }

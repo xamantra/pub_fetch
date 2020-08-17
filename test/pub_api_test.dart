@@ -26,9 +26,10 @@ void main() {
     });
   }
 
-  // Repeat test 10 times
-  for (var i = 0; i < 10; i++) {
-    var query = randomQuery();
+  // Repeat test for all query available
+  var shuffledQueries = queries..shuffle();
+  for (var i = 0; i < shuffledQueries.length; i++) {
+    var query = shuffledQueries[i];
     test('[${i + 1}] api.search("$query")', () async {
       print('Testing with query "$query"');
       var result = await PubAPI().search(query);
