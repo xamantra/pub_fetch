@@ -21,4 +21,40 @@ void main() {
       expect(validHomepagePackage(topDart), true);
     }
   });
+
+  test('models.PubPackage', () {
+    var dummyPackage = PubPackage(
+      name: 'dummy_package',
+      url: 'dummy_package',
+      description: 'dummy_package',
+      publisher: 'dummy_package',
+    );
+    var json = dummyPackage.toRawJson();
+    var parsedPackage = PubPackage.fromRawJson(json);
+    expect(json != null, true);
+    expect(dummyPackage == parsedPackage, true);
+    expect(dummyPackage.hashCode == parsedPackage.hashCode, true);
+    expect(dummyPackage.toString() == parsedPackage.toString(), true);
+  });
+
+  test('models.PubHomepage', () {
+    var dummyPackage = PubPackage(
+      name: 'dummy_package',
+      url: 'dummy_package',
+      description: 'dummy_package',
+      publisher: 'dummy_package',
+    );
+    var dummyHomepage = PubHomepage(
+      flutterFavorites: [dummyPackage],
+      mostPopularPackages: [dummyPackage],
+      topFlutterPackages: [dummyPackage],
+      topDartPackages: [dummyPackage],
+    );
+    var json = dummyHomepage.toRawJson();
+    var parsedHomepage = PubHomepage.fromRawJson(json);
+    expect(json != null, true);
+    expect(dummyHomepage == parsedHomepage, true);
+    expect(dummyHomepage.hashCode == parsedHomepage.hashCode, true);
+    expect(dummyHomepage.toString() == parsedHomepage.toString(), true);
+  });
 }
