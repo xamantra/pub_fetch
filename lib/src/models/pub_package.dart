@@ -54,9 +54,34 @@ class PubPackage extends Equatable {
     return (pubTags ?? []).where((x) => x == 'DART').isNotEmpty;
   }
 
+  /// Returns `true` if this package has `Dart` SDK `native` runtime support.
+  bool get dartNativeSupport {
+    return (pubTags ?? []).where((x) => x == 'NATIVE').isNotEmpty;
+  }
+
+  /// Returns `true` if this package has `Dart` SDK `web` support.
+  bool get dartJSSupport {
+    return (pubTags ?? []).where((x) => x == 'JS').isNotEmpty;
+  }
+
   /// Returns `true` if this package has `Flutter` SDK support.
   bool get flutterSupport {
     return (pubTags ?? []).where((x) => x == 'FLUTTER').isNotEmpty;
+  }
+
+  /// Returns `true` if this package has `Flutter` SDK `android` support.
+  bool get flutterAndroidSupport {
+    return (pubTags ?? []).where((x) => x == 'ANDROID').isNotEmpty;
+  }
+
+  /// Returns `true` if this package has `Flutter` SDK `iOS` support.
+  bool get flutterIOSSupport {
+    return (pubTags ?? []).where((x) => x == 'IOS').isNotEmpty;
+  }
+
+  /// Returns `true` if this package has `Flutter` SDK `web` support.
+  bool get flutterWebSupport {
+    return (pubTags ?? []).where((x) => x == 'WEB').isNotEmpty;
   }
 
   /// Data from package listing.

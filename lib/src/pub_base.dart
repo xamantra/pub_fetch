@@ -42,11 +42,15 @@ class PubAPI extends PubAPIDocs {
   Future<PubPackageList> _search(
     String query, {
     PackageType packageType,
+    List<FlutterPlatform> platforms,
+    List<DartRuntime> dartRuntimes,
   }) async {
     _initService();
     var html = await _service.searchPackage(
       query: query,
       packageType: packageType,
+      flutterPlatforms: platforms,
+      dartRuntimes: dartRuntimes,
     );
     var packages = getPackages(html, pkgItem);
     var totalPackagesCount = getPackagesCount(html, packageListingTotalItems);
@@ -64,13 +68,27 @@ class PubAPI extends PubAPIDocs {
     return result;
   }
 
-  Future<PubPackageList> searchFlutter(String query) async {
-    var result = await _search(query, packageType: PackageType.flutter);
+  Future<PubPackageList> searchFlutter(
+    String query, {
+    List<FlutterPlatform> platforms,
+  }) async {
+    var result = await _search(
+      query,
+      packageType: PackageType.flutter,
+      platforms: platforms,
+    );
     return result;
   }
 
-  Future<PubPackageList> searchDart(String query) async {
-    var result = await _search(query, packageType: PackageType.dart);
+  Future<PubPackageList> searchDart(
+    String query, {
+    List<DartRuntime> dartRuntimes,
+  }) async {
+    var result = await _search(
+      query,
+      packageType: PackageType.dart,
+      dartRuntimes: dartRuntimes,
+    );
     return result;
   }
 }
