@@ -1,5 +1,5 @@
 name: pub_api
-description: A dart library for scraping pub.dev packages.
+description: A dart library for scraping the pub.dev website. Use in your Dart or Flutter projects.
 version: 1.0.0
 homepage: https://github.com/xamantra/pub_api
 # author: Your Name <email@example.com>

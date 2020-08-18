@@ -1,6 +1,6 @@
 <p align="center"><img src="./pub_api.png"></p>
 
-<p align="center">A dart library for scraping pub.dev packages.</p>
+<p align="center">A dart library for scraping the <a href="https://pub.dev">pub.dev</a> website. For your <strong>Dart</strong> and <strong>Flutter</strong> projects.</p>
 
 <p align="center">
 <a href="https://github.com/xamantra/pub_api/actions?query=workflow%3ACI">
