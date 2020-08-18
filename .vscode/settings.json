@@ -1,3 +1,5 @@
 {
-    "markiscodecoverage.searchCriteria": "coverage/lcov.info"
+    "markiscodecoverage.searchCriteria": "coverage/lcov.info",
+    "dart.flutterSdkPath": "C:/Flutter/flutter-1.17.0/bin",
+    "dart.sdkPath": "C:/Flutter/flutter-1.17.0/bin/cache/dart-sdk/bin"
 }
