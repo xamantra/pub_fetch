@@ -39,9 +39,15 @@ class PubAPI extends PubAPIDocs {
     );
   }
 
-  Future<PubPackageList> search(String query) async {
+  Future<PubPackageList> _search(
+    String query, {
+    PackageType packageType,
+  }) async {
     _initService();
-    var html = await _service.searchPackage(query: query);
+    var html = await _service.searchPackage(
+      query: query,
+      packageType: packageType,
+    );
     var packages = getPackages(html, pkgItem);
     var totalPackagesCount = getPackagesCount(html, packageListingTotalItems);
     var result = PubPackageList(
@@ -50,6 +56,21 @@ class PubAPI extends PubAPIDocs {
       totalPackagesCount: totalPackagesCount,
       packages: packages,
     );
+    return result;
+  }
+
+  Future<PubPackageList> search(String query) async {
+    var result = await _search(query);
+    return result;
+  }
+
+  Future<PubPackageList> searchFlutter(String query) async {
+    var result = await _search(query, packageType: PackageType.flutter);
+    return result;
+  }
+
+  Future<PubPackageList> searchDart(String query) async {
+    var result = await _search(query, packageType: PackageType.dart);
     return result;
   }
 }

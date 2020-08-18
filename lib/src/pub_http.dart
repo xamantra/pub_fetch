@@ -41,12 +41,24 @@ class PubHttp extends PubHttpDocs {
   Future<HtmlDocument> searchPackage({
     @required String query,
     int page = 1,
+    PackageType packageType = PackageType.any,
   }) async {
     if (query == null || query.isEmpty) {
       throw PubError('Search query is required when searching.');
     }
     _initDio();
-    var result = await dio.get('$host/packages?q=$query&page=$page');
+    var type = '';
+    switch (packageType ?? PackageType.any) {
+      case PackageType.dart:
+        type = '/dart';
+        break;
+      case PackageType.flutter:
+        type = '/flutter';
+        break;
+      default:
+        break;
+    }
+    var result = await dio.get('$host$type/packages?q=$query&page=$page');
     var html = parseHtmlDocument(result.data);
     return html;
   }

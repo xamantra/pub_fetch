@@ -45,4 +45,42 @@ void main() {
       }
     });
   }
+
+  // Repeat test for all query available
+  for (var i = 0; i < shuffledQueries.length; i++) {
+    var query = shuffledQueries[i];
+    test('[${i + 1}] api.searchFlutter("$query")', () async {
+      print('Testing with query "$query"');
+      var result = await PubAPI().searchFlutter(query);
+      expect(result != null, true);
+      expect(result, isA<PubPackageList>());
+      expect(validPackageList(result), true);
+      for (var package in result.packages) {
+        var valid = package.flutterSupport;
+        if (!valid) {
+          print('INVALID PACKAGE (test will fail): $package');
+        }
+        expect(valid, true);
+      }
+    });
+  }
+
+  // Repeat test for all query available
+  for (var i = 0; i < shuffledQueries.length; i++) {
+    var query = shuffledQueries[i];
+    test('[${i + 1}] api.searchDart("$query")', () async {
+      print('Testing with query "$query"');
+      var result = await PubAPI().searchDart(query);
+      expect(result != null, true);
+      expect(result, isA<PubPackageList>());
+      expect(validPackageList(result), true);
+      for (var package in result.packages) {
+        var valid = package.dartSupport;
+        if (!valid) {
+          print('INVALID PACKAGE (test will fail): $package');
+        }
+        expect(valid, true);
+      }
+    });
+  }
 }

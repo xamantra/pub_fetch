@@ -35,7 +35,7 @@ bool validPackageList(PubPackageList packageList) {
   var isOnPage = packageList.currentPage != null;
   var hasTotalPackagesCount = packageList.totalPackagesCount != null;
   var hasTotalPageCount = packageList.totalPageCount >= 0;
-  var hasItem = packageList.packages != null && packageList.packages.isNotEmpty;
+  var hasItem = packageList.packages != null;
   return isOnPage && hasTotalPackagesCount && hasTotalPageCount && hasItem;
 }
 

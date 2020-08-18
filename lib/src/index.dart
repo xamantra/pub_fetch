@@ -7,3 +7,4 @@ export 'pub_http.dart';
 export 'pub_http.docs.dart';
 export 'pub_scraper.dart';
 export 'pub_tester.dart';
+export 'pub_types.dart';

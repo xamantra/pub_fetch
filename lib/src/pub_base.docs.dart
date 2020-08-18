@@ -1,3 +1,5 @@
+import 'index.dart';
+
 /// Docs for [PubAPI].
 abstract class PubAPIDocs {
   /// Timeout in milliseconds for opening url.
@@ -20,6 +22,12 @@ abstract class PubAPIDocs {
   /// Get `pub.dev` homepage data. The homepage features popular packages.
   void homepage();
 
-  /// Search packages with `query`.
-  void search(String query);
+  /// Search packages compatible with any SDKs.
+  Future<PubPackageList> search(String query);
+
+  /// Search packages compatible with `Flutter` SDKs.
+  Future<PubPackageList> searchFlutter(String query);
+
+  /// Search packages compatible with `Dart` SDKs.
+  Future<PubPackageList> searchDart(String query);
 }
