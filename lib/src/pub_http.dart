@@ -44,6 +44,7 @@ class PubHttp extends PubHttpDocs {
     PackageType packageType = PackageType.any,
     List<FlutterPlatform> flutterPlatforms,
     List<DartRuntime> dartRuntimes,
+    PackageSort sortBy = PackageSort.relevance,
   }) async {
     if (query == null || query.isEmpty) {
       throw PubError('Search query is required when searching.');
@@ -62,7 +63,8 @@ class PubHttp extends PubHttpDocs {
     }
     var platforms = groupFlutterPlatforms(flutterPlatforms);
     var runtimes = groupDartRuntimes(dartRuntimes);
-    var result = await dio.get('$host$type/packages?q=$query&page=$page$platforms$runtimes');
+    var sort = getSortParam(sortBy);
+    var result = await dio.get('$host$type/packages?q=$query&page=$page$platforms$runtimes$sort');
     var html = parseHtmlDocument(result.data);
     return html;
   }

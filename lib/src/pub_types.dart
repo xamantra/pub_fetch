@@ -10,6 +10,30 @@ enum PackageType {
   any,
 }
 
+/// Available types or sorting packages in `pub.dev`.
+enum PackageSort {
+  /// Default sorting.
+  relevance,
+
+  /// Top sort.
+  overallScore,
+
+  /// Packages that got *updated* recently will be shown first.
+  recentlyUpdated,
+
+  /// Packages that got *just uploaded* in the last 30 days.
+  newestPackage,
+
+  /// Sort by number of likes.
+  mostLikes,
+
+  /// Sort by highest pub points.
+  mostPubPoints,
+
+  /// Sort by number of usage.
+  popularity,
+}
+
 /// Flutter package compatibility types.
 ///
 /// `android`, `ios`, and `web`.
@@ -76,4 +100,29 @@ String groupDartRuntimes(List<DartRuntime> items) {
     }
   }
   return '&runtime=$group';
+}
+
+/// Format `PackageSort` enum value into get url parameter string.
+String getSortParam(PackageSort sort) {
+  if (sort != null) {
+    switch (sort) {
+      case PackageSort.relevance:
+        return '';
+      case PackageSort.overallScore:
+        return '&sort=top';
+      case PackageSort.recentlyUpdated:
+        return '&sort=updated';
+      case PackageSort.newestPackage:
+        return '&sort=created';
+      case PackageSort.mostLikes:
+        return '&sort=like';
+      case PackageSort.mostPubPoints:
+        return '&sort=points';
+      case PackageSort.popularity:
+        return '&sort=popularity';
+      default:
+        return '';
+    }
+  }
+  return '';
 }

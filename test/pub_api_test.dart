@@ -44,6 +44,35 @@ void main() {
     expect(result3, '&runtime=js+native');
   });
 
+  test('internals.getSortParam(...)', () {
+    for (var sort in PackageSort.values) {
+      var result = getSortParam(sort);
+      switch (sort) {
+        case PackageSort.relevance:
+          expect(result, '');
+          break;
+        case PackageSort.overallScore:
+          expect(result, '&sort=top');
+          break;
+        case PackageSort.recentlyUpdated:
+          expect(result, '&sort=updated');
+          break;
+        case PackageSort.newestPackage:
+          expect(result, '&sort=created');
+          break;
+        case PackageSort.mostLikes:
+          expect(result, '&sort=like');
+          break;
+        case PackageSort.mostPubPoints:
+          expect(result, '&sort=points');
+          break;
+        case PackageSort.popularity:
+          expect(result, '&sort=popularity');
+          break;
+      }
+    }
+  });
+
   // Repeat test 10 times
   for (var i = 0; i < 10; i++) {
     test('[${i + 1}] api.homepage()', () async {
@@ -105,6 +134,27 @@ void main() {
     });
   }
 
+  // Repeat test for all query available
+  for (var i = 0; i < shuffledQueries.length; i++) {
+    var query = shuffledQueries[i];
+    for (var sortBy in PackageSort.values) {
+      test('[${i + 1}] api.searchFlutter("$query", [$sortBy])', () async {
+        print('Testing with query "$query", [$sortBy]');
+        var result = await PubAPI().searchFlutter(query, sortBy: sortBy);
+        expect(result != null, true);
+        expect(result, isA<PubPackageList>());
+        expect(validPackageList(result), true);
+        for (var package in result.packages) {
+          var valid = package.flutterSupport;
+          if (!valid) {
+            print('INVALID PACKAGE (test will fail): $package');
+          }
+          expect(valid, true);
+        }
+      });
+    }
+  }
+
   var platforms = [
     FlutterPlatform.android,
     FlutterPlatform.ios,
@@ -149,6 +199,27 @@ void main() {
         expect(valid, true);
       }
     });
+  }
+
+  // Repeat test for all query available
+  for (var i = 0; i < shuffledQueries.length; i++) {
+    var query = shuffledQueries[i];
+    for (var sortBy in PackageSort.values) {
+      test('[${i + 1}] api.searchDart("$query", [$sortBy])', () async {
+        print('Testing with query "$query", [$sortBy]');
+        var result = await PubAPI().searchDart(query, sortBy: sortBy);
+        expect(result != null, true);
+        expect(result, isA<PubPackageList>());
+        expect(validPackageList(result), true);
+        for (var package in result.packages) {
+          var valid = package.dartSupport;
+          if (!valid) {
+            print('INVALID PACKAGE (test will fail): $package');
+          }
+          expect(valid, true);
+        }
+      });
+    }
   }
 
   var runtimes = [
