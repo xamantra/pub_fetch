@@ -6,7 +6,7 @@ import 'package:universal_html/parsing.dart';
 import 'index.dart';
 
 /// Http service for fetching pub.dev pages.
-class PubHttp {
+class PubHttp extends PubHttpDocs {
   /// Http service for fetching pub.dev pages.
   PubHttp({
     int connectTimeout,
@@ -18,9 +18,6 @@ class PubHttp {
   final int _connectTimeout;
   final int _receiveTimeout;
   final int _sendTimeout;
-
-  /// Http client use for sending http requests and receiving responses.
-  Dio dio;
 
   void _initDio() {
     if (dio != null) return;
@@ -34,9 +31,6 @@ class PubHttp {
     );
   }
 
-  /// Get the `HtmlDocument` from a certain pub.dev page.
-  ///
-  /// Defaults to root page (homepage) if not specified.
   Future<HtmlDocument> getHtml([String pubPath]) async {
     _initDio();
     var result = await dio.get('$host${pubPath ?? ""}');
@@ -44,9 +38,6 @@ class PubHttp {
     return html;
   }
 
-  /// Get the `HtmlDocument` of pub.dev search results.
-  ///
-  /// The parameter `name` must NOT be null or empty.
   Future<HtmlDocument> searchPackage({
     @required String query,
     int page = 1,
