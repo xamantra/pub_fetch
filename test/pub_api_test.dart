@@ -116,6 +116,28 @@ void main() {
     }
   }, timeout: timeout);
 
+  test('api.nextPage(...)', () async {
+    var api = PubAPI();
+    var shuffledQueries = queries..shuffle();
+    for (var i = 0; i < shuffledQueries.length; i++) {
+      var query = shuffledQueries[i];
+      print('Testing with query "$query"');
+      var current = await api.search(query);
+      var result = await api.nextPage(current);
+      expect(result != null, true);
+      expect(result, isA<PubPackageList>());
+      expect(result.currentPage, 2);
+      expect(validPackageList(result), true);
+      for (var package in result.packages) {
+        var valid = validPackage(package);
+        if (!valid) {
+          print('INVALID PACKAGE (test will fail): $package');
+        }
+        expect(valid, true);
+      }
+    }
+  }, timeout: timeout);
+
   test('api.searchFlutter(...)', () async {
     var shuffledQueries = queries..shuffle();
     for (var i = 0; i < shuffledQueries.length; i++) {

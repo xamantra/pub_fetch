@@ -49,6 +49,13 @@ class PubPackageList extends Equatable {
     @required this.params,
   });
 
+  /// Get the next page number for pagination. If currently on last page,
+  /// this will just return the last page.
+  int getNextPageNumber() {
+    var nextPage = currentPage + 1;
+    return nextPage.clamp(1, totalPageCount);
+  }
+
   /// Convert this data into JSON.
   Map<String, dynamic> toJson() {
     return {

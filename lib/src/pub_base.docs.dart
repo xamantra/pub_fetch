@@ -30,4 +30,7 @@ abstract class PubAPIDocs {
 
   /// Search packages compatible with `Dart` SDKs.
   Future<PubPackageList> searchDart(String query);
+
+  /// Get the next page data from the current `PubPackageList`.
+  Future<PubPackageList> nextPage(PubPackageList currentPackageList);
 }
