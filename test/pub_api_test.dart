@@ -3,6 +3,8 @@ import 'package:test/test.dart';
 
 import 'queries.dart';
 
+const timeout = Timeout(Duration(seconds: 3600));
+
 void main() {
   test('internals.groupFlutterPlatforms(...)', () {
     var result1 = groupFlutterPlatforms([
@@ -73,9 +75,9 @@ void main() {
     }
   });
 
-  // Repeat test 10 times
-  for (var i = 0; i < 10; i++) {
-    test('[${i + 1}] api.homepage()', () async {
+  test('api.homepage()', () async {
+    for (var i = 0; i < 10; i++) {
+      print('[${i + 1}] api.homepage()');
       var homepage = await PubAPI().homepage();
       expect(homepage != null, true);
       expect(homepage, isA<PubHomepage>());
@@ -92,14 +94,13 @@ void main() {
       for (var topDart in homepage.topDartPackages) {
         expect(validHomepagePackage(topDart), true);
       }
-    });
-  }
+    }
+  }, timeout: timeout);
 
-  // Repeat test for all query available
-  var shuffledQueries = queries..shuffle();
-  for (var i = 0; i < shuffledQueries.length; i++) {
-    var query = shuffledQueries[i];
-    test('[${i + 1}] api.search("$query")', () async {
+  test('api.search(...)', () async {
+    var shuffledQueries = queries..shuffle();
+    for (var i = 0; i < shuffledQueries.length; i++) {
+      var query = shuffledQueries[i];
       print('Testing with query "$query"');
       var result = await PubAPI().search(query);
       expect(result != null, true);
@@ -112,13 +113,13 @@ void main() {
         }
         expect(valid, true);
       }
-    });
-  }
+    }
+  }, timeout: timeout);
 
-  // Repeat test for all query available
-  for (var i = 0; i < shuffledQueries.length; i++) {
-    var query = shuffledQueries[i];
-    test('[${i + 1}] api.searchFlutter("$query")', () async {
+  test('api.searchFlutter(...)', () async {
+    var shuffledQueries = queries..shuffle();
+    for (var i = 0; i < shuffledQueries.length; i++) {
+      var query = shuffledQueries[i];
       print('Testing with query "$query"');
       var result = await PubAPI().searchFlutter(query);
       expect(result != null, true);
@@ -131,14 +132,14 @@ void main() {
         }
         expect(valid, true);
       }
-    });
-  }
+    }
+  }, timeout: timeout);
 
-  // Repeat test for all query available
-  for (var i = 0; i < shuffledQueries.length; i++) {
-    var query = shuffledQueries[i];
-    for (var sortBy in PackageSort.values) {
-      test('[${i + 1}] api.searchFlutter("$query", [$sortBy])', () async {
+  test('api.searchFlutter(..., [sortBy])', () async {
+    var shuffledQueries = queries..shuffle();
+    for (var i = 0; i < shuffledQueries.length; i++) {
+      var query = shuffledQueries[i];
+      for (var sortBy in PackageSort.values) {
         print('Testing with query "$query", [$sortBy]');
         var result = await PubAPI().searchFlutter(query, sortBy: sortBy);
         expect(result != null, true);
@@ -151,20 +152,20 @@ void main() {
           }
           expect(valid, true);
         }
-      });
+      }
     }
-  }
+  }, timeout: timeout);
 
-  var platforms = [
-    FlutterPlatform.android,
-    FlutterPlatform.ios,
-    FlutterPlatform.web,
-  ];
-  // Repeat test for all query available
-  for (var i = 0; i < shuffledQueries.length; i++) {
-    var query = shuffledQueries[i];
-    test('[${i + 1}] api.searchFlutter("$query", [platforms])', () async {
-      print('Testing platform search: "${groupFlutterPlatforms(platforms)}"');
+  test('api.searchFlutter(..., [platforms])', () async {
+    var platforms = [
+      FlutterPlatform.android,
+      FlutterPlatform.ios,
+      FlutterPlatform.web,
+    ];
+    var shuffledQueries = queries..shuffle();
+    for (var i = 0; i < shuffledQueries.length; i++) {
+      var query = shuffledQueries[i];
+      print('Platform search "$query": "${groupFlutterPlatforms(platforms)}"');
       var result = await PubAPI().searchFlutter(query, platforms: platforms);
       expect(result != null, true);
       expect(result, isA<PubPackageList>());
@@ -179,13 +180,13 @@ void main() {
         }
         expect(fullySupported, true);
       }
-    });
-  }
+    }
+  }, timeout: timeout);
 
-  // Repeat test for all query available
-  for (var i = 0; i < shuffledQueries.length; i++) {
-    var query = shuffledQueries[i];
-    test('[${i + 1}] api.searchDart("$query")', () async {
+  test('api.searchDart(...)', () async {
+    var shuffledQueries = queries..shuffle();
+    for (var i = 0; i < shuffledQueries.length; i++) {
+      var query = shuffledQueries[i];
       print('Testing with query "$query"');
       var result = await PubAPI().searchDart(query);
       expect(result != null, true);
@@ -198,14 +199,14 @@ void main() {
         }
         expect(valid, true);
       }
-    });
-  }
+    }
+  }, timeout: timeout);
 
-  // Repeat test for all query available
-  for (var i = 0; i < shuffledQueries.length; i++) {
-    var query = shuffledQueries[i];
-    for (var sortBy in PackageSort.values) {
-      test('[${i + 1}] api.searchDart("$query", [$sortBy])', () async {
+  test('api.searchDart(..., [sortBy])', () async {
+    var shuffledQueries = queries..shuffle();
+    for (var i = 0; i < shuffledQueries.length; i++) {
+      var query = shuffledQueries[i];
+      for (var sortBy in PackageSort.values) {
         print('Testing with query "$query", [$sortBy]');
         var result = await PubAPI().searchDart(query, sortBy: sortBy);
         expect(result != null, true);
@@ -218,18 +219,18 @@ void main() {
           }
           expect(valid, true);
         }
-      });
+      }
     }
-  }
+  }, timeout: timeout);
 
-  var runtimes = [
-    DartRuntime.native,
-    DartRuntime.js,
-  ];
-  // Repeat test for all query available
-  for (var i = 0; i < shuffledQueries.length; i++) {
-    var query = shuffledQueries[i];
-    test('[${i + 1}] api.searchDart("$query", [runtimes])', () async {
+  test('api.searchDart(..., [runtimes])', () async {
+    var runtimes = [
+      DartRuntime.native,
+      DartRuntime.js,
+    ];
+    var shuffledQueries = queries..shuffle();
+    for (var i = 0; i < shuffledQueries.length; i++) {
+      var query = shuffledQueries[i];
       print('Testing runtime search: "${groupDartRuntimes(runtimes)}"');
       var result = await PubAPI().searchDart(query, dartRuntimes: runtimes);
       expect(result != null, true);
@@ -244,6 +245,6 @@ void main() {
         }
         expect(fullySupported, true);
       }
-    });
-  }
+    }
+  }, timeout: timeout);
 }
