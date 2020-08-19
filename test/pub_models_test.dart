@@ -36,6 +36,18 @@ void main() {
     expect(pubPackageList.toString() == pubPackageList.toString(), true);
   });
 
+  test('models.PubPackageListParams', () async {
+    var _pubPackageList = await PubAPI().search(randomQuery());
+    var params = _pubPackageList.params;
+    print('Testing with query "${_pubPackageList.searchQuery}"');
+    var json = params.toRawJson();
+    var parsedParams = PubPackageListParams.fromRawJson(json);
+    expect(json != null, true);
+    expect(params == parsedParams, true);
+    expect(params.hashCode == params.hashCode, true);
+    expect(params.toString() == params.toString(), true);
+  });
+
   test('models.PubPackage', () async {
     var pubPackageList = await PubAPI().search(randomQuery());
     print('Testing with query "${pubPackageList.searchQuery}"');

@@ -34,7 +34,7 @@ class PubPackageListParams extends Equatable {
   /// Convert this data into JSON.
   Map<String, dynamic> toJson() {
     return {
-      'packageType': PackageType.values.indexOf(packageType),
+      'packageType': packageTypeToInt(packageType),
       'platforms': platforms
           ?.map(
             (x) => FlutterPlatform.values.indexOf(x),
@@ -45,7 +45,7 @@ class PubPackageListParams extends Equatable {
             (x) => DartRuntime.values.indexOf(x),
           )
           ?.toList(),
-      'sortBy': PackageSort.values.indexOf(sortBy),
+      'sortBy': packageSortToInt(sortBy),
     };
   }
 
@@ -54,14 +54,14 @@ class PubPackageListParams extends Equatable {
     if (map == null) return null;
 
     return PubPackageListParams(
-      packageType: PackageType.values[map['packageType']],
+      packageType: intToPackageType(map['packageType']),
       platforms: List<FlutterPlatform>.from(map['platforms']?.map(
         (x) => FlutterPlatform.values[x],
       )),
       dartRuntimes: List<DartRuntime>.from(map['dartRuntimes']?.map(
         (x) => DartRuntime.values[x],
       )),
-      sortBy: PackageSort.values[map['sortBy']],
+      sortBy: intToPackageSort(map['sortBy']),
     );
   }
 

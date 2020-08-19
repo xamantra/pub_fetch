@@ -3,3 +3,4 @@ include: package:effective_dart/analysis_options.yaml
 linter:
   rules:
     file_names: false
+    avoid_returning_null: false

@@ -36,7 +36,22 @@ bool validPackageList(PubPackageList packageList) {
   var hasTotalPackagesCount = packageList.totalPackagesCount != null;
   var hasTotalPageCount = packageList.totalPageCount >= 0;
   var hasItem = packageList.packages != null;
-  return isOnPage && hasTotalPackagesCount && hasTotalPageCount && hasItem;
+  var json = packageList.toRawJson();
+  var parsedPubPackageList = PubPackageList.fromRawJson(json);
+  var jsonNotNull = json != null;
+  var parsedEqual = packageList == parsedPubPackageList;
+  var hashcodeEqual = packageList.hashCode == packageList.hashCode;
+  var stringEqual = packageList.toString() == packageList.toString();
+  return _allTrue([
+    isOnPage,
+    hasTotalPackagesCount,
+    hasTotalPageCount,
+    hasItem,
+    jsonNotNull,
+    parsedEqual,
+    hashcodeEqual,
+    stringEqual,
+  ]);
 }
 
 /// This is used for internal testing but feel free to use this

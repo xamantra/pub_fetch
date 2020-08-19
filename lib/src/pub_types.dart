@@ -10,6 +10,18 @@ enum PackageType {
   any,
 }
 
+/// Convert a `PackageType` enum to `int` for serialization.
+int packageTypeToInt(PackageType packageType) {
+  if (packageType == null) return null;
+  return PackageType.values.indexOf(packageType);
+}
+
+/// Convert an `int` to `PackageType` enum for serialization.
+PackageType intToPackageType(int packageType) {
+  if (packageType == null) return null;
+  return PackageType.values[packageType];
+}
+
 /// Available types or sorting packages in `pub.dev`.
 enum PackageSort {
   /// Default sorting.
@@ -32,6 +44,18 @@ enum PackageSort {
 
   /// Sort by number of usage.
   popularity,
+}
+
+/// Convert a `PackageSort` enum to `int` for serialization.
+int packageSortToInt(PackageSort packageType) {
+  if (packageType == null) return null;
+  return PackageSort.values.indexOf(packageType);
+}
+
+/// Convert an `int` to `PackageSort` enum for serialization.
+PackageSort intToPackageSort(int packageType) {
+  if (packageType == null) return null;
+  return PackageSort.values[packageType];
 }
 
 /// Flutter package compatibility types.
