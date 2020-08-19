@@ -1,4 +1,4 @@
-import 'package:pub_api/src/index.dart';
+import 'package:pub_fetch/src/index.dart';
 import 'package:test/test.dart';
 
 import 'queries.dart';

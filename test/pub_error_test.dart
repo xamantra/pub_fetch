@@ -1,5 +1,4 @@
-import 'package:pub_api/pub_api.dart';
-import 'package:pub_api/src/index.dart';
+import 'package:pub_fetch/src/index.dart';
 import 'package:test/test.dart';
 
 void main() {

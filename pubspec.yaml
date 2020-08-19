@@ -1,7 +1,7 @@
-name: pub_api
+name: pub_fetch
 description: A dart library for scraping the pub.dev website. Use in your Dart or Flutter projects.
 version: 1.0.0
-homepage: https://github.com/xamantra/pub_api
+homepage: https://github.com/xamantra/pub_fetch
 # author: Your Name <email@example.com>
 
 environment:
