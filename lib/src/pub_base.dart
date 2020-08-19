@@ -73,6 +73,22 @@ class PubAPI extends PubAPIDocs {
     return result;
   }
 
+  Future<PubPackageList> _jumpToPage(
+    PubPackageList currentPackageList,
+    int page,
+  ) async {
+    var params = currentPackageList.params;
+    var result = await _search(
+      currentPackageList.searchQuery,
+      page: page,
+      packageType: PackageType.dart,
+      dartRuntimes: params.dartRuntimes,
+      platforms: params.platforms,
+      sortBy: params.sortBy,
+    );
+    return result;
+  }
+
   Future<PubPackageList> search(
     String query, {
     PackageSort sortBy,
@@ -109,16 +125,13 @@ class PubAPI extends PubAPIDocs {
     return result;
   }
 
-  Future<PubPackageList> nextPage(PubPackageList currentPackageList) async {
-    var params = currentPackageList.params;
-    var result = await _search(
-      currentPackageList.searchQuery,
-      page: currentPackageList.getNextPageNumber(),
-      packageType: PackageType.dart,
-      dartRuntimes: params.dartRuntimes,
-      platforms: params.platforms,
-      sortBy: params.sortBy,
-    );
+  Future<PubPackageList> nextPage(PubPackageList current) async {
+    var result = await _jumpToPage(current, current.getNextPageNumber());
+    return result;
+  }
+
+  Future<PubPackageList> prevPage(PubPackageList current) async {
+    var result = await _jumpToPage(current, current.getPrevPageNumber());
     return result;
   }
 }

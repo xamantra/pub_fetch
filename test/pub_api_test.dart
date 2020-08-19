@@ -123,12 +123,35 @@ void main() {
       var query = shuffledQueries[i];
       print('Testing with query "$query"');
       var current = await api.search(query);
-      var result = await api.nextPage(current);
-      expect(result != null, true);
-      expect(result, isA<PubPackageList>());
-      expect(result.currentPage, 2);
-      expect(validPackageList(result), true);
-      for (var package in result.packages) {
+      var next = await api.nextPage(current);
+      expect(next != null, true);
+      expect(next, isA<PubPackageList>());
+      expect(next.currentPage, 2);
+      expect(validPackageList(next), true);
+      for (var package in next.packages) {
+        var valid = validPackage(package);
+        if (!valid) {
+          print('INVALID PACKAGE (test will fail): $package');
+        }
+        expect(valid, true);
+      }
+    }
+  }, timeout: timeout);
+
+  test('api.prevPage(...)', () async {
+    var api = PubAPI();
+    var shuffledQueries = queries..shuffle();
+    for (var i = 0; i < shuffledQueries.length; i++) {
+      var query = shuffledQueries[i];
+      print('Testing with query "$query"');
+      var first = await api.search(query);
+      var current = await api.nextPage(first);
+      var previous = await api.prevPage(current);
+      expect(previous != null, true);
+      expect(previous, isA<PubPackageList>());
+      expect(previous.currentPage, 1);
+      expect(validPackageList(previous), true);
+      for (var package in previous.packages) {
         var valid = validPackage(package);
         if (!valid) {
           print('INVALID PACKAGE (test will fail): $package');

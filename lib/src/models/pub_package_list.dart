@@ -35,7 +35,7 @@ class PubPackageList extends Equatable {
     if ((pageCount * 10) < totalPackagesCount) {
       pageCount += 1;
     }
-    return pageCount;
+    return pageCount.clamp(1, 9999999);
   }
 
   /// `pub.dev` package list page.
@@ -49,11 +49,18 @@ class PubPackageList extends Equatable {
     @required this.params,
   });
 
-  /// Get the next page number for pagination. If currently on last page,
-  /// this will just return the last page.
+  /// Get the `next` page number for pagination. If currently on the last page,
+  /// this will just return the last page again.
   int getNextPageNumber() {
     var nextPage = currentPage + 1;
     return nextPage.clamp(1, totalPageCount);
+  }
+
+  /// Get the `previous` page number for pagination. If currently on the first
+  /// page, this will just return the first page again.
+  int getPrevPageNumber() {
+    var prevPage = currentPage - 1;
+    return prevPage.clamp(1, totalPageCount);
   }
 
   /// Convert this data into JSON.
