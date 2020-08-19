@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import '../index.dart';
 import 'index.dart';
 
 /// `pub.dev` package list page.
@@ -14,6 +13,10 @@ class PubPackageList extends Equatable {
   /// Returns non-null string value
   /// if this package list is from a search page.
   final String searchQuery;
+
+  /// The parameter used for this package
+  /// list to fetch is stored for pagination.
+  final PubPackageListParams params;
 
   /// Current page number for pagination.
   final int currentPage;
@@ -43,6 +46,7 @@ class PubPackageList extends Equatable {
     @required this.currentPage,
     @required this.totalPackagesCount,
     @required this.packages,
+    @required this.params,
   });
 
   /// Convert this data into JSON.
@@ -52,6 +56,7 @@ class PubPackageList extends Equatable {
       'currentPage': currentPage,
       'totalPackagesCount': totalPackagesCount,
       'packages': packages?.map((x) => x?.toJson())?.toList(),
+      'params': params?.toJson(),
     };
   }
 
@@ -66,6 +71,7 @@ class PubPackageList extends Equatable {
       packages: List<PubPackage>.from(
         map['packages']?.map((x) => PubPackage.fromJson(x)),
       ),
+      params: PubPackageListParams.fromJson(map['params']),
     );
   }
 
@@ -89,6 +95,7 @@ class PubPackageList extends Equatable {
         totalPackagesCount,
         packages,
         totalPageCount,
+        params,
       ];
 
   @override

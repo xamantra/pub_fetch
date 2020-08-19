@@ -61,6 +61,12 @@ class PubAPI extends PubAPIDocs {
       currentPage: 1,
       totalPackagesCount: totalPackagesCount,
       packages: packages,
+      params: PubPackageListParams(
+        packageType: packageType,
+        platforms: platforms,
+        dartRuntimes: dartRuntimes,
+        sortBy: sortBy,
+      ),
     );
     return result;
   }
