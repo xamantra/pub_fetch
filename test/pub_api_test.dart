@@ -161,6 +161,20 @@ void main() {
     }
   }, timeout: timeout);
 
+  test('api.browseFlutterPackages()', () async {
+    var result = await PubAPI().browseFlutterPackages();
+    expect(result != null, true);
+    expect(result, isA<PubPackageList>());
+    expect(validPackageList(result), true);
+    for (var package in result.packages) {
+      var valid = package.flutterSupport;
+      if (!valid) {
+        print('INVALID PACKAGE (test will fail): $package');
+      }
+      expect(valid, true);
+    }
+  }, timeout: timeout);
+
   test('api.browseFlutterPackages(...)', () async {
     var shuffledQueries = queries..shuffle();
     for (var i = 0; i < shuffledQueries.length; i++) {
@@ -231,6 +245,20 @@ void main() {
         }
         expect(fullySupported, true);
       }
+    }
+  }, timeout: timeout);
+
+  test('api.browseDartPackages()', () async {
+    var result = await PubAPI().browseDartPackages();
+    expect(result != null, true);
+    expect(result, isA<PubPackageList>());
+    expect(validPackageList(result), true);
+    for (var package in result.packages) {
+      var valid = package.dartSupport;
+      if (!valid) {
+        print('INVALID PACKAGE (test will fail): $package');
+      }
+      expect(valid, true);
     }
   }, timeout: timeout);
 
