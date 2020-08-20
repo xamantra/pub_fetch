@@ -292,4 +292,36 @@ void main() {
       }
     }
   }, timeout: timeout);
+
+  test('api.flutterFavorites()', () async {
+    var result = await PubAPI().flutterFavorites();
+    expect(result != null, true);
+    expect(result, isA<PubPackageList>());
+    expect(validPackageList(result), true);
+    for (var package in result.packages) {
+      var flutterSupport = package.flutterSupport;
+      var isFlutterFavorite = package.isFlutterFavorite;
+      var valid = flutterSupport && isFlutterFavorite;
+      if (!valid) {
+        print('INVALID PACKAGE (test will fail): $package');
+      }
+      expect(valid, true);
+    }
+  }, timeout: timeout);
+
+  test('api.flutterFavorites("state management")', () async {
+    var result = await PubAPI().flutterFavorites(query: 'state management');
+    expect(result != null, true);
+    expect(result, isA<PubPackageList>());
+    expect(validPackageList(result), true);
+    for (var package in result.packages) {
+      var flutterSupport = package.flutterSupport;
+      var isFlutterFavorite = package.isFlutterFavorite;
+      var valid = flutterSupport && isFlutterFavorite;
+      if (!valid) {
+        print('INVALID PACKAGE (test will fail): $package');
+      }
+      expect(valid, true);
+    }
+  }, timeout: timeout);
 }

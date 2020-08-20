@@ -81,7 +81,7 @@ class PubAPI extends PubAPIDocs {
     var result = await _search(
       currentPackageList.searchQuery,
       page: page,
-      packageType: PackageType.dart,
+      packageType: params.packageType,
       dartRuntimes: params.dartRuntimes,
       platforms: params.platforms,
       sortBy: params.sortBy,
@@ -133,5 +133,32 @@ class PubAPI extends PubAPIDocs {
   Future<PubPackageList> prevPage(PubPackageList current) async {
     var result = await _jumpToPage(current, current.getPrevPageNumber());
     return result;
+  }
+
+  Future<PubPackageList> flutterFavorites({
+    String query,
+    int page = 1,
+    PackageSort sortBy = PackageSort.relevance,
+  }) async {
+    _initService();
+    var html = await _service.flutterFavorites(
+      query: query,
+      page: page ?? 1,
+      sortBy: sortBy,
+    );
+    var packages = getPackages(html, pkgItem);
+    var totalPackagesCount = getPackagesCount(html, packageListingTotalItems);
+    return PubPackageList(
+      searchQuery: query,
+      currentPage: page ?? 1,
+      totalPackagesCount: totalPackagesCount,
+      packages: packages,
+      params: PubPackageListParams(
+        packageType: null,
+        platforms: [],
+        dartRuntimes: [],
+        sortBy: sortBy,
+      ),
+    );
   }
 }

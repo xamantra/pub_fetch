@@ -23,13 +23,21 @@ abstract class PubAPIDocs {
   void homepage();
 
   /// Search packages compatible with any SDKs.
-  Future<PubPackageList> search(String query);
+  Future<PubPackageList> search(String query, {PackageSort sortBy});
 
   /// Search packages compatible with `Flutter` SDKs.
-  Future<PubPackageList> searchFlutter(String query);
+  Future<PubPackageList> searchFlutter(
+    String query, {
+    List<FlutterPlatform> platforms,
+    PackageSort sortBy,
+  });
 
   /// Search packages compatible with `Dart` SDKs.
-  Future<PubPackageList> searchDart(String query);
+  Future<PubPackageList> searchDart(
+    String query, {
+    List<DartRuntime> dartRuntimes,
+    PackageSort sortBy,
+  });
 
   /// Get the next page data from the current `PubPackageList`. If currently on
   /// the last page, this will just return the last page again.
@@ -38,4 +46,11 @@ abstract class PubAPIDocs {
   /// Get the previous page data from the current `PubPackageList`. If
   /// currently on the first page, this will just return the first page again.
   Future<PubPackageList> prevPage(PubPackageList currentPackageList);
+
+  /// Get list of flutter favorite packages.
+  Future<PubPackageList> flutterFavorites({
+    String query,
+    int page = 1,
+    PackageSort sortBy = PackageSort.relevance,
+  });
 }

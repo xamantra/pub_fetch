@@ -68,4 +68,20 @@ class PubHttp extends PubHttpDocs {
     var html = parseHtmlDocument(result.data);
     return html;
   }
+
+  Future<HtmlDocument> flutterFavorites({
+    String query,
+    int page = 1,
+    PackageSort sortBy = PackageSort.relevance,
+  }) async {
+    _initDio();
+    var sort = getSortParam(sortBy);
+    var q = '&q=${query ?? ""}';
+    if ((query ?? '').isEmpty) {
+      q = '';
+    }
+    var result = await dio.get('$host/flutter/favorites?page=$page$sort$q');
+    var html = parseHtmlDocument(result.data);
+    return html;
+  }
 }
