@@ -26,15 +26,15 @@ abstract class PubAPIDocs {
   Future<PubPackageList> search(String query, {PackageSort sortBy});
 
   /// Search packages compatible with `Flutter` SDKs.
-  Future<PubPackageList> searchFlutter(
-    String query, {
+  Future<PubPackageList> browseFlutterPackages({
+    String search,
     List<FlutterPlatform> platforms,
     PackageSort sortBy,
   });
 
   /// Search packages compatible with `Dart` SDKs.
-  Future<PubPackageList> searchDart(
-    String query, {
+  Future<PubPackageList> browseDartPackages({
+    String search,
     List<DartRuntime> dartRuntimes,
     PackageSort sortBy,
   });
@@ -49,7 +49,7 @@ abstract class PubAPIDocs {
 
   /// Get list of flutter favorite packages.
   Future<PubPackageList> flutterFavorites({
-    String query,
+    String search,
     int page = 1,
     PackageSort sortBy = PackageSort.relevance,
   });

@@ -38,7 +38,7 @@ class PubHttp extends PubHttpDocs {
     return html;
   }
 
-  Future<HtmlDocument> searchPackage({
+  Future<HtmlDocument> browsePackages({
     @required String query,
     int page = 1,
     PackageType packageType = PackageType.any,
@@ -46,9 +46,6 @@ class PubHttp extends PubHttpDocs {
     List<DartRuntime> dartRuntimes,
     PackageSort sortBy = PackageSort.relevance,
   }) async {
-    if (query == null || query.isEmpty) {
-      throw PubError('Search query is required when searching.');
-    }
     _initDio();
     var type = '';
     switch (packageType ?? PackageType.any) {
@@ -64,7 +61,11 @@ class PubHttp extends PubHttpDocs {
     var platforms = groupFlutterPlatforms(flutterPlatforms);
     var runtimes = groupDartRuntimes(dartRuntimes);
     var sort = getSortParam(sortBy);
-    var result = await dio.get('$host$type/packages?q=$query&page=$page$platforms$runtimes$sort');
+    var q = '&q=${query ?? ""}';
+    if ((query ?? '').isEmpty) {
+      q = '';
+    }
+    var result = await dio.get('$host$type/packages?page=$page$q$platforms$runtimes$sort');
     var html = parseHtmlDocument(result.data);
     return html;
   }

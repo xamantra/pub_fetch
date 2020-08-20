@@ -39,8 +39,8 @@ class PubAPI extends PubAPIDocs {
     );
   }
 
-  Future<PubPackageList> _search(
-    String query, {
+  Future<PubPackageList> _browse(
+    String searchQuery, {
     int page,
     PackageType packageType,
     List<FlutterPlatform> platforms,
@@ -48,8 +48,8 @@ class PubAPI extends PubAPIDocs {
     PackageSort sortBy,
   }) async {
     _initService();
-    var html = await _service.searchPackage(
-      query: query,
+    var html = await _service.browsePackages(
+      query: searchQuery,
       page: page ?? 1,
       packageType: packageType,
       flutterPlatforms: platforms,
@@ -59,7 +59,7 @@ class PubAPI extends PubAPIDocs {
     var packages = getPackages(html, pkgItem);
     var totalPackagesCount = getPackagesCount(html, packageListingTotalItems);
     var result = PubPackageList(
-      searchQuery: query,
+      searchQuery: searchQuery,
       currentPage: page ?? 1,
       totalPackagesCount: totalPackagesCount,
       packages: packages,
@@ -78,7 +78,7 @@ class PubAPI extends PubAPIDocs {
     int page,
   ) async {
     var params = currentPackageList.params;
-    var result = await _search(
+    var result = await _browse(
       currentPackageList.searchQuery,
       page: page,
       packageType: params.packageType,
@@ -93,17 +93,17 @@ class PubAPI extends PubAPIDocs {
     String query, {
     PackageSort sortBy,
   }) async {
-    var result = await _search(query, sortBy: sortBy);
+    var result = await _browse(query, sortBy: sortBy);
     return result;
   }
 
-  Future<PubPackageList> searchFlutter(
-    String query, {
+  Future<PubPackageList> browseFlutterPackages({
+    String search,
     List<FlutterPlatform> platforms,
     PackageSort sortBy,
   }) async {
-    var result = await _search(
-      query,
+    var result = await _browse(
+      search,
       packageType: PackageType.flutter,
       platforms: platforms,
       sortBy: sortBy,
@@ -111,13 +111,13 @@ class PubAPI extends PubAPIDocs {
     return result;
   }
 
-  Future<PubPackageList> searchDart(
-    String query, {
+  Future<PubPackageList> browseDartPackages({
+    String search,
     List<DartRuntime> dartRuntimes,
     PackageSort sortBy,
   }) async {
-    var result = await _search(
-      query,
+    var result = await _browse(
+      search,
       packageType: PackageType.dart,
       dartRuntimes: dartRuntimes,
       sortBy: sortBy,
@@ -136,20 +136,20 @@ class PubAPI extends PubAPIDocs {
   }
 
   Future<PubPackageList> flutterFavorites({
-    String query,
+    String search,
     int page = 1,
     PackageSort sortBy = PackageSort.relevance,
   }) async {
     _initService();
     var html = await _service.flutterFavorites(
-      query: query,
+      query: search,
       page: page ?? 1,
       sortBy: sortBy,
     );
     var packages = getPackages(html, pkgItem);
     var totalPackagesCount = getPackagesCount(html, packageListingTotalItems);
     return PubPackageList(
-      searchQuery: query,
+      searchQuery: search,
       currentPage: page ?? 1,
       totalPackagesCount: totalPackagesCount,
       packages: packages,

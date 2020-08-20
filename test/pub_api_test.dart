@@ -161,12 +161,12 @@ void main() {
     }
   }, timeout: timeout);
 
-  test('api.searchFlutter(...)', () async {
+  test('api.browseFlutterPackages(...)', () async {
     var shuffledQueries = queries..shuffle();
     for (var i = 0; i < shuffledQueries.length; i++) {
       var query = shuffledQueries[i];
       print('Testing with query "$query"');
-      var result = await PubAPI().searchFlutter(query);
+      var result = await PubAPI().browseFlutterPackages(search: query);
       expect(result != null, true);
       expect(result, isA<PubPackageList>());
       expect(validPackageList(result), true);
@@ -180,13 +180,16 @@ void main() {
     }
   }, timeout: timeout);
 
-  test('api.searchFlutter(..., [sortBy])', () async {
+  test('api.browseFlutterPackages(..., [sortBy])', () async {
     var shuffledQueries = queries..shuffle();
     for (var i = 0; i < shuffledQueries.length; i++) {
       var query = shuffledQueries[i];
       for (var sortBy in PackageSort.values) {
         print('Testing with query "$query", [$sortBy]');
-        var result = await PubAPI().searchFlutter(query, sortBy: sortBy);
+        var result = await PubAPI().browseFlutterPackages(
+          search: query,
+          sortBy: sortBy,
+        );
         expect(result != null, true);
         expect(result, isA<PubPackageList>());
         expect(validPackageList(result), true);
@@ -201,7 +204,7 @@ void main() {
     }
   }, timeout: timeout);
 
-  test('api.searchFlutter(..., [platforms])', () async {
+  test('api.browseFlutterPackages(..., [platforms])', () async {
     var platforms = [
       FlutterPlatform.android,
       FlutterPlatform.ios,
@@ -211,7 +214,10 @@ void main() {
     for (var i = 0; i < shuffledQueries.length; i++) {
       var query = shuffledQueries[i];
       print('Platform search "$query": "${groupFlutterPlatforms(platforms)}"');
-      var result = await PubAPI().searchFlutter(query, platforms: platforms);
+      var result = await PubAPI().browseFlutterPackages(
+        search: query,
+        platforms: platforms,
+      );
       expect(result != null, true);
       expect(result, isA<PubPackageList>());
       expect(validPackageList(result), true);
@@ -228,12 +234,12 @@ void main() {
     }
   }, timeout: timeout);
 
-  test('api.searchDart(...)', () async {
+  test('api.browseDartPackages(...)', () async {
     var shuffledQueries = queries..shuffle();
     for (var i = 0; i < shuffledQueries.length; i++) {
       var query = shuffledQueries[i];
       print('Testing with query "$query"');
-      var result = await PubAPI().searchDart(query);
+      var result = await PubAPI().browseDartPackages(search: query);
       expect(result != null, true);
       expect(result, isA<PubPackageList>());
       expect(validPackageList(result), true);
@@ -247,13 +253,16 @@ void main() {
     }
   }, timeout: timeout);
 
-  test('api.searchDart(..., [sortBy])', () async {
+  test('api.browseDartPackages(..., [sortBy])', () async {
     var shuffledQueries = queries..shuffle();
     for (var i = 0; i < shuffledQueries.length; i++) {
       var query = shuffledQueries[i];
       for (var sortBy in PackageSort.values) {
         print('Testing with query "$query", [$sortBy]');
-        var result = await PubAPI().searchDart(query, sortBy: sortBy);
+        var result = await PubAPI().browseDartPackages(
+          search: query,
+          sortBy: sortBy,
+        );
         expect(result != null, true);
         expect(result, isA<PubPackageList>());
         expect(validPackageList(result), true);
@@ -268,7 +277,7 @@ void main() {
     }
   }, timeout: timeout);
 
-  test('api.searchDart(..., [runtimes])', () async {
+  test('api.browseDartPackages(..., [runtimes])', () async {
     var runtimes = [
       DartRuntime.native,
       DartRuntime.js,
@@ -277,7 +286,10 @@ void main() {
     for (var i = 0; i < shuffledQueries.length; i++) {
       var query = shuffledQueries[i];
       print('Testing runtime search: "${groupDartRuntimes(runtimes)}"');
-      var result = await PubAPI().searchDart(query, dartRuntimes: runtimes);
+      var result = await PubAPI().browseDartPackages(
+        search: query,
+        dartRuntimes: runtimes,
+      );
       expect(result != null, true);
       expect(result, isA<PubPackageList>());
       expect(validPackageList(result), true);
@@ -310,7 +322,7 @@ void main() {
   }, timeout: timeout);
 
   test('api.flutterFavorites("state management")', () async {
-    var result = await PubAPI().flutterFavorites(query: 'state management');
+    var result = await PubAPI().flutterFavorites(search: 'state management');
     expect(result != null, true);
     expect(result, isA<PubPackageList>());
     expect(validPackageList(result), true);

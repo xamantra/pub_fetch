@@ -17,7 +17,7 @@ abstract class PubHttpDocs {
   /// Get the `HtmlDocument` of pub.dev search results.
   ///
   /// The parameter `name` must NOT be null or empty.
-  Future<HtmlDocument> searchPackage({
+  Future<HtmlDocument> browsePackages({
     @required String query,
     int page = 1,
     PackageType packageType = PackageType.any,
